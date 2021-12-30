@@ -1,20 +1,43 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react'
+import { Keyboard, StyleSheet, View } from 'react-native'
+import { AppView, SearchBar } from './src/components'
+import { RestaurantsList } from './src/screens'
 
 export default function App() {
+  const handleSearch = (search: string): void => {
+    console.log({ search })
+    Keyboard.dismiss()
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <AppView>
+      <View style={styles.search}>
+        <SearchBar
+          onSearch={handleSearch}
+          placeholder="Search..."
+          searchOnChars={3}
+        />
+      </View>
+      <View style={styles.body}>
+        <RestaurantsList />
+      </View>
+    </AppView>
+  )
 }
 
 const styles = StyleSheet.create({
-  container: {
+  body: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 16,
   },
-});
+  text: {},
+  search: {
+    padding: 16,
+  },
+  searchInput: {
+    borderColor: 'red',
+  },
+  searchBarContainer: {
+    borderRadius: 10,
+  },
+})
